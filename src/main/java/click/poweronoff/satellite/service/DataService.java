@@ -3,6 +3,7 @@ package click.poweronoff.satellite.service;
 import click.poweronoff.satellite.domain.Feature;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DataService {
 
@@ -17,9 +18,11 @@ public interface DataService {
      * returned specific Feature by given id
      *
      * @param featureId feature id
-     * @return Feature
+     * @return Optional of Feature in case of the feature can be
+     * found
+     * or an empty Optional
      */
-    Feature getFeature(final String featureId);
+    Optional<Feature> getFeature(final String featureId);
 
 
     /**

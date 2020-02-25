@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,7 +36,7 @@ public class FeaturesControllerTest {
         when(dataService.getAllFeatures()).thenReturn(List.of(new Feature("feature-id", 123L, 234L, 345L, "mission")));
         this.mockMvc.perform(get("/features")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").exists())
                 .andExpect(jsonPath("$[0].id", is("feature-id")))
                 .andExpect(jsonPath("$[0].timestamp", is(123)))
@@ -42,5 +45,21 @@ public class FeaturesControllerTest {
                 .andExpect(jsonPath("$[0].missionName", is("mission"))
                 );
     }
+
+    @Test
+    public void getFeatureByIdShouldReturnAMessage() throws Exception {
+        when(dataService.getFeature(anyString())).thenReturn(Optional.of(new Feature("feature-id", 123L, 234L, 345L, "mission")));
+        this.mockMvc.perform(get("/features/feature-id"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void getFeatureByIdShouldReturnNotFound() throws Exception {
+        when(dataService.getFeature(anyString())).thenReturn(Optional.empty());
+        this.mockMvc.perform(get("/features/non-existing-feature"))
+                .andExpect(status().isNotFound());
+    }
+
 
 }
