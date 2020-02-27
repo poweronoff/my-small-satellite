@@ -1,5 +1,6 @@
 package click.poweronoff.satellite.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,4 +19,7 @@ public class Feature {
     private long endViewingDate;
 
     private String missionName;
+
+    @JsonIgnore
+    private byte[] picture;
 }

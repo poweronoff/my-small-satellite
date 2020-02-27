@@ -20,7 +20,7 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public String getPictureAsB64(String featureId) {
-        return null;
+    public Optional<byte[]> getPicture(String featureId) {
+        return Optional.empty();
     }
 }

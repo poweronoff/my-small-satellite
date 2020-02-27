@@ -32,4 +32,10 @@ public class FeaturesController {
         return dataService.getFeature(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find feature"));
     }
 
+    @RequestMapping(value = "/features/{id}/quicklook", method = RequestMethod.GET, produces = "image/png")
+    @ResponseBody
+    public byte[] quicklookByFeatureId(@PathVariable String id) {
+        return dataService.getPicture(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find feature"));
+    }
+
 }

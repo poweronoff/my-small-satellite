@@ -26,10 +26,10 @@ public interface DataService {
 
 
     /**
-     * returned a picture as a Base64 encoded String representation for given feature id
+     * returned a picture as a byte[] representation for given feature id
      *
      * @param featureId feature id
-     * @return a Base64 encoded String representation for a picture
+     * @return a picture as a byte[]
      */
-    String getPictureAsB64(final String featureId);
+    Optional<byte[]> getPicture(final String featureId);
 }

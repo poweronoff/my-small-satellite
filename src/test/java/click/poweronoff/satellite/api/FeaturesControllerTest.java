@@ -33,7 +33,7 @@ public class FeaturesControllerTest {
 
     @Test
     public void getFeaturesShouldReturnDefaultMessage() throws Exception {
-        when(dataService.getAllFeatures()).thenReturn(List.of(new Feature("feature-id", 123L, 234L, 345L, "mission")));
+        when(dataService.getAllFeatures()).thenReturn(List.of(createTestFeature()));
         this.mockMvc.perform(get("/features")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -48,7 +48,7 @@ public class FeaturesControllerTest {
 
     @Test
     public void getFeatureByIdShouldReturnAMessage() throws Exception {
-        when(dataService.getFeature(anyString())).thenReturn(Optional.of(new Feature("feature-id", 123L, 234L, 345L, "mission")));
+        when(dataService.getFeature(anyString())).thenReturn(Optional.of(createTestFeature()));
         this.mockMvc.perform(get("/features/feature-id"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -62,4 +62,25 @@ public class FeaturesControllerTest {
     }
 
 
+    @Test
+    public void getQuicklookByFeatureIdShouldReturnNotFound() throws Exception {
+        when(dataService.getPicture(anyString())).thenReturn(Optional.empty());
+        this.mockMvc.perform(get("/features/non-existing-feature/quicklook"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void getQuicklookByFeatureIdShouldReturnAPicture() throws Exception {
+        Feature testFeature = createTestFeature();
+
+        when(dataService.getPicture(anyString())).thenReturn(Optional.of(testFeature.getPicture()));
+        this.mockMvc.perform(get("/features/existing-feature/quicklook"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.IMAGE_PNG))
+                .andExpect(content().bytes(testFeature.getPicture()));
+    }
+
+    private Feature createTestFeature() {
+        return new Feature("feature-id", 123L, 234L, 345L, "mission", "test-picture".getBytes());
+    }
 }
