@@ -10,17 +10,17 @@ public interface DataService {
     /**
      * returned all possible Features as a list
      *
-     * @return list of Features
+     * @return Optional of list of Feature in case of features can
+     * be found or empty Optional
      */
-    List<Feature> getAllFeatures();
+    Optional<List<Feature>> getAllFeatures();
 
     /**
      * returned specific Feature by given id
      *
      * @param featureId feature id
      * @return Optional of Feature in case of the feature can be
-     * found
-     * or an empty Optional
+     * found or an empty Optional
      */
     Optional<Feature> getFeature(final String featureId);
 
@@ -29,7 +29,8 @@ public interface DataService {
      * returned a picture as a byte[] representation for given feature id
      *
      * @param featureId feature id
-     * @return a picture as a byte[]
+     * @return Optional of byte[] representing a picture or
+     * empty optional if no picture can be found for given feature id
      */
     Optional<byte[]> getPicture(final String featureId);
 }

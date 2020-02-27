@@ -3,15 +3,14 @@ package click.poweronoff.satellite.service;
 import click.poweronoff.satellite.domain.Feature;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class DataServiceImpl implements DataService {
 
-    public List<Feature> getAllFeatures() {
-        return Collections.emptyList();
+    public Optional<List<Feature>> getAllFeatures() {
+        return Optional.empty();
     }
 
     @Override

@@ -23,7 +23,7 @@ public class FeaturesController {
     @RequestMapping(value = "/features", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Feature> features() {
-        return dataService.getAllFeatures();
+        return dataService.getAllFeatures().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find any feature"));
     }
 
     @RequestMapping(value = "/features/{id}", method = RequestMethod.GET, produces = "application/json")

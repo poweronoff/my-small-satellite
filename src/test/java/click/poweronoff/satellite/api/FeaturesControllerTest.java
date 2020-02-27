@@ -33,7 +33,7 @@ public class FeaturesControllerTest {
 
     @Test
     public void getFeaturesShouldReturnDefaultMessage() throws Exception {
-        when(dataService.getAllFeatures()).thenReturn(List.of(createTestFeature()));
+        when(dataService.getAllFeatures()).thenReturn(Optional.of(List.of(createTestFeature())));
         this.mockMvc.perform(get("/features")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -44,6 +44,13 @@ public class FeaturesControllerTest {
                 .andExpect(jsonPath("$[0].endViewingDate", is(345)))
                 .andExpect(jsonPath("$[0].missionName", is("mission"))
                 );
+    }
+
+    @Test
+    public void getFeaturesShouldReturnNotFound() throws Exception {
+        when(dataService.getAllFeatures()).thenReturn(Optional.empty());
+        this.mockMvc.perform(get("/features"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
