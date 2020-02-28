@@ -7,8 +7,9 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static java.util.Arrays.stream;
 
 @Service
 public class DataTransformationService {
@@ -17,7 +18,7 @@ public class DataTransformationService {
 
         List<Feature> featuresList = new ArrayList<>();
 
-        Arrays.stream(collections).forEach(collection -> Arrays.stream(collection.getFeatures()).forEach(feature -> featuresList.add(createFeature(feature))));
+        stream(collections).forEach(collection -> stream(collection.getFeatures()).forEach(feature -> featuresList.add(createFeature(feature))));
 
         return featuresList;
     }
@@ -29,7 +30,7 @@ public class DataTransformationService {
                 Long.parseLong(features.getProperties().getAcquisition().getBeginViewingDate()),
                 Long.parseLong(features.getProperties().getAcquisition().getEndViewingDate()),
                 features.getProperties().getAcquisition().getMissionName(),
-                Base64.decodeBase64(features.getProperties().getQuicklook().getBytes())
+                features.getProperties().getQuicklook() != null ? Base64.decodeBase64(features.getProperties().getQuicklook().getBytes()) : null
         );
     }
 }
