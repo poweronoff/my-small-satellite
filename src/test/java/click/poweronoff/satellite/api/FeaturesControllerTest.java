@@ -17,7 +17,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,7 +33,7 @@ public class FeaturesControllerTest {
     @Test
     public void getFeaturesShouldReturnDefaultMessage() throws Exception {
         when(dataService.getAllFeatures()).thenReturn(Optional.of(List.of(createTestFeature())));
-        this.mockMvc.perform(get("/features")).andDo(print())
+        this.mockMvc.perform(get("/features"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").exists())
