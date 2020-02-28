@@ -1,12 +1,12 @@
 package click.poweronoff.satellite.repository.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-@Builder
 public class FeaturesCollection {
+    @JsonProperty
     private Features[] features;
 }
