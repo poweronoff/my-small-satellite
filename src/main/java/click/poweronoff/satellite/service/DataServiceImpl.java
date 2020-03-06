@@ -38,11 +38,9 @@ public class DataServiceImpl implements DataService {
     @Override
     public Optional<Feature> getFeature(String featureId) {
         try {
-            List<Feature> features = dataTransformationService.transformToFeatureList(jsonFileRepository.readAllFeatures());
-            if (!features.isEmpty()) {
-                return features.stream().filter(feature -> feature.getId().equals(featureId)).findFirst();
-            }
-            return Optional.empty();
+            return dataTransformationService.transformToFeatureList(jsonFileRepository.readAllFeatures())
+                    .stream()
+                    .filter(feature -> feature.getId().equals(featureId)).findFirst();
         } catch (IOException e) {
             log.error("exception on getFeature() and featureIo {} occurred, please check your app configuration", featureId);
             return Optional.empty();
@@ -52,11 +50,8 @@ public class DataServiceImpl implements DataService {
     @Override
     public Optional<byte[]> getPicture(String featureId) {
         try {
-            List<Feature> features = dataTransformationService.transformToFeatureList(jsonFileRepository.readAllFeatures());
-            if (!features.isEmpty()) {
-                return features.stream().filter(feature -> feature.getId().equals(featureId)).findFirst().filter(feature -> feature.getPicture() != null).map(Feature::getPicture);
-            }
-            return Optional.empty();
+            return dataTransformationService.transformToFeatureList(jsonFileRepository.readAllFeatures())
+                    .stream().filter(feature -> feature.getId().equals(featureId)).findFirst().filter(feature -> feature.getPicture() != null).map(Feature::getPicture);
         } catch (IOException e) {
             log.error("exception on getPicture() and featureIo {} occurred, please check your app configuration", featureId);
             return Optional.empty();
