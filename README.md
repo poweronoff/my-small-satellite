@@ -12,7 +12,7 @@ A coding challenge solution `my-small-satellite`
 #### Quick start
 - clone the repository
 ```bash
-git clone https://poweronoff.click/steam/my-small-satellite.git
+git clone https://code.poweronoff.click/steam/my-small-satellite.git
 ```
 #####Test
 To test the application you can run the following command in the application directory:
