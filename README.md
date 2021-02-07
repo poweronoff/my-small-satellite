@@ -1,10 +1,11 @@
 # my-small-satellite
 
+[![Build Status](https://ci.poweronoff.click/api/badges/steam/my-small-satellite/status.svg)](https://ci.poweronoff.click/steam/my-small-satellite)
+
 A coding challenge solution `my-small-satellite`
 
-
-
 #### Requirements
+
 - [maven 3](http://maven.apache.org/download.cgi)
 - [openjdk-8](https://openjdk.java.net)
 - [git](https://git-scm.com)
