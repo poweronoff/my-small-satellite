@@ -1,12 +1,16 @@
 kind: pipeline
-name: "my-small-satellite pipeline"
+name: my-small-satellite pipeline
+
+
 steps:
-  - commands:
-      - "mvn clean test package"
-    image: "maven:3-jdk-11"
-    name: test
-  - image: appleboy/drone-telegram
-    name: "send telegram notification"
+
+  - name: test
+    image: maven:3-jdk-11
+    commands:
+      - mvn clean test package
+
+  - name: send telegram notification
+    image: appleboy/drone-telegram
     settings:
+      token: 986857118:AAFN9uAhYl_0WMYUE6hWGPoLArjjBBPxDnM
       to: 733452136
-      token: "986857118:AAFN9uAhYl_0WMYUE6hWGPoLArjjBBPxDnM"
